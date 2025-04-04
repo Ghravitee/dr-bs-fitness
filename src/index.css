@@ -1,0 +1,18 @@
+@import "tailwindcss";
+
+body {
+  background-image: url("./assets/dr-bs.JPEG");
+  background-size: cover;
+  background-position: 50% 20%;
+  background-repeat: no-repeat;
+  background-attachment: fixed; /* Keeps the image fixed while scrolling */
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+}
+
+.font-raleway {
+  font-family: "Raleway", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
