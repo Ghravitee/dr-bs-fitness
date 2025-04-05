@@ -8,7 +8,6 @@ import {
   MdOutlineKeyboardArrowDown,
   MdOutlineKeyboardArrowUp,
 } from "react-icons/md";
-import logo from "../assets/logo.PNG";
 
 // Form Validation Schema
 const formSchema = z.object({
@@ -156,7 +155,7 @@ export default function Hero() {
       <div className="absolute top-0 left-5 flex items-center justify-start">
         <div>
           <img
-            src={logo}
+            src="/logo.PNG"
             alt="This is the logo of the website"
             width={100}
             height={100}

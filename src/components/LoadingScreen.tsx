@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import logo from "../assets/logo.PNG";
 
 interface LoadingScreenProps {
   isLoading: boolean;
@@ -35,7 +34,7 @@ function LoadingScreen({ isLoading }: LoadingScreenProps) {
     >
       <div className="flex flex-col items-center">
         <img
-          src={logo}
+          src="/logo.PNG"
           alt="This is the logo of the website"
           width={150}
           height={150}
