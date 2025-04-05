@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
 import Hero from "./components/Hero";
 import LoadingScreen from "./components/LoadingScreen"; // Import the loader
-import Navbar from "./components/Navbar";
-import { div } from "framer-motion/client";
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
