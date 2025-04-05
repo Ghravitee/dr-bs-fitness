@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import logo from "../assets/logo.PNG";
+import logo from "../assets/logo.png";
 
 interface LoadingScreenProps {
   isLoading: boolean;
@@ -10,7 +10,7 @@ function LoadingScreen({ isLoading }: LoadingScreenProps) {
   const [fadeOut, setFadeOut] = useState(false);
 
   useEffect(() => {
-    let interval: NodeJS.Timeout;
+    let interval: number;
 
     if (isLoading) {
       const duration = 3000;

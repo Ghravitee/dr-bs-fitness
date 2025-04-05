@@ -8,7 +8,7 @@ import {
   MdOutlineKeyboardArrowDown,
   MdOutlineKeyboardArrowUp,
 } from "react-icons/md";
-import logo from "../assets/logo.PNG";
+import logo from "../assets/logo.png";
 
 // Form Validation Schema
 const formSchema = z.object({
@@ -68,6 +68,36 @@ const steps = [
   },
 ];
 
+type FormData = {
+  name: string;
+  email: string;
+  date: string;
+  ageRange: string;
+  phone: string;
+  city: string;
+  country: string;
+  fitnessGoal: string;
+  employment: string;
+  confirmation: "yes" | "no";
+  instagram?: string; // ✅ optional to match react-hook-form inference
+};
+
+const allowedKeys = [
+  "name",
+  "email",
+  "date",
+  "ageRange",
+  "phone",
+  "instagram",
+  "city",
+  "country",
+  "fitnessGoal",
+  "employment",
+  "confirmation",
+] as const;
+
+type FormFieldNames = (typeof allowedKeys)[number];
+
 export default function Hero() {
   const [stepIndex, setStepIndex] = useState(0);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -78,8 +108,14 @@ export default function Hero() {
   });
 
   useEffect(() => {
-    const storedData = JSON.parse(localStorage.getItem("formInfo")) || {};
-    Object.keys(storedData).forEach((key) => setValue(key, storedData[key]));
+    const stored = localStorage.getItem("formInfo");
+    const storedData = stored ? JSON.parse(stored) : {};
+
+    Object.keys(storedData).forEach((key) => {
+      if (allowedKeys.includes(key as FormFieldNames)) {
+        setValue(key as FormFieldNames, storedData[key]);
+      }
+    });
   }, [setValue]);
 
   useEffect(() => {
@@ -90,8 +126,9 @@ export default function Hero() {
   }, [watch]);
 
   useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (!e.target.closest(".custom-dropdown")) {
+    const handleClickOutside = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (!target.closest(".custom-dropdown")) {
         setIsDropdownOpen(false);
       }
     };
@@ -109,12 +146,11 @@ export default function Hero() {
   const nextStep = () => setStepIndex((i) => Math.min(i + 1, steps.length - 1));
   const prevStep = () => setStepIndex((i) => Math.max(i - 1, 0));
 
-  const onSubmit = (data) => {
+  const onSubmit = (data: FormData) => {
     console.log("Form Info:", data);
     localStorage.removeItem("formInfo");
     alert("Form submitted successfully!");
   };
-
   return (
     <div className="relative h-screen w-full overflow-hidden text-white font-sans">
       <div className="absolute top-0 left-5 flex items-center justify-start">
@@ -156,7 +192,11 @@ export default function Hero() {
                   onClick={() => setIsDropdownOpen((prev) => !prev)}
                   className="bg-white text-black p-3 rounded-md border border-gray-300 cursor-pointer flex justify-between items-center"
                 >
-                  <span>{watch(steps[stepIndex].name) || "Select..."}</span>
+                  <span>
+                    {watch(steps[stepIndex].name as keyof FormData) ||
+                      "Select..."}
+                  </span>
+
                   <span>
                     {isDropdownOpen ? (
                       <MdOutlineKeyboardArrowUp />
@@ -167,16 +207,20 @@ export default function Hero() {
                 </div>
                 {isDropdownOpen && (
                   <div className="absolute z-10 w-full mt-1 bg-black rounded-md shadow-lg">
-                    {steps[stepIndex].options.map((option) => (
+                    {steps[stepIndex].options?.map((option) => (
                       <div
                         key={option}
                         onClick={() => {
-                          setValue(steps[stepIndex].name, option);
+                          setValue(
+                            steps[stepIndex].name as keyof FormData,
+                            option
+                          );
                           setIsDropdownOpen(false);
                           nextStep(); // Move to next step after selection
                         }}
                         className={`p-3 cursor-pointer hover:bg-gray-600 ${
-                          watch(steps[stepIndex].name) === option
+                          watch(steps[stepIndex].name as keyof FormData) ===
+                          option
                             ? "bg-transparent font-semibold"
                             : ""
                         }`}
@@ -189,12 +233,12 @@ export default function Hero() {
               </div>
             ) : steps[stepIndex].type === "radio" ? (
               <div className="space-y-2">
-                {steps[stepIndex].options.map((option) => (
+                {steps[stepIndex].options?.map((option) => (
                   <label key={option} className="flex items-center gap-3">
                     <input
                       type="radio"
                       value={option}
-                      {...register(steps[stepIndex].name)}
+                      {...register(steps[stepIndex].name as keyof FormData)}
                       className="accent-black"
                       onChange={() => nextStep()} // Move to next step on selection
                     />
@@ -204,7 +248,7 @@ export default function Hero() {
               </div>
             ) : (
               <input
-                {...register(steps[stepIndex].name)}
+                {...register(steps[stepIndex].name as keyof FormData)}
                 type={steps[stepIndex].type}
                 className="lg:text-2xl block w-full px-3 pt-3 pb-2 focus:outline-0 border-b border-gray-300 bg-transparent text-white"
                 onKeyDown={(e) => {
@@ -217,9 +261,12 @@ export default function Hero() {
             )}
 
             {/* Error message */}
-            {formState.errors[steps[stepIndex].name] && (
+            {formState.errors[steps[stepIndex].name as keyof FormData] && (
               <p className="text-red-400 mt-2">
-                {formState.errors[steps[stepIndex].name]?.message}
+                {
+                  formState.errors[steps[stepIndex].name as keyof FormData]
+                    ?.message
+                }
               </p>
             )}
 
