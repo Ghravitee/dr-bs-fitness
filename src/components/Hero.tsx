@@ -8,7 +8,7 @@ import {
   MdOutlineKeyboardArrowDown,
   MdOutlineKeyboardArrowUp,
 } from "react-icons/md";
-import logo from "../assets/logo.png";
+import logo from "../assets/logo.PNG";
 
 // Form Validation Schema
 const formSchema = z.object({
