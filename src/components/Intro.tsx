@@ -23,9 +23,9 @@ const fadeInUp = {
 };
 
 const Intro = () => {
-  const [showStory, setShowStory] = useState(true);
-  const [showCerts, setShowCerts] = useState(true);
-  const [showOffer, setShowOffer] = useState(true);
+  const [showStory, setShowStory] = useState(false);
+  const [showCerts, setShowCerts] = useState(false);
+  const [showOffer, setShowOffer] = useState(false);
 
   return (
     <div className="relative min-h-screen text-white flex flex-col justify-between p-6">

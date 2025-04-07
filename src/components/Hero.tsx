@@ -351,7 +351,7 @@ export default function Hero() {
         {stepIndex > 0 && (
           <div
             onClick={prevStep}
-            className="p-3 bg-black rounded-md flex items-center justify-center cursor-pointer"
+            className="p-3 bg-black rounded-md flex items-center justify-center cursor-pointer border-white border"
           >
             <MdOutlineKeyboardArrowUp className="text-2xl text-white" />
           </div>
@@ -362,7 +362,7 @@ export default function Hero() {
               const isValid = await validateStep();
               if (isValid) nextStep();
             }}
-            className="p-3 bg-black rounded-md flex items-center justify-center cursor-pointer"
+            className="p-3 bg-black rounded-md flex items-center justify-center cursor-pointer border-white border"
           >
             <MdOutlineKeyboardArrowDown className="text-2xl text-white" />
           </div>
