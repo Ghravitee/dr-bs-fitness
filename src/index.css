@@ -1,26 +1,12 @@
 @import "tailwindcss";
 
 body {
-  background-image: url("./assets/dr-bs-1.JPEG");
-  background-size: cover;
-  background-position: 50% 20%;
-  background-repeat: no-repeat;
-  background-attachment: fixed; /* Keeps the image fixed while scrolling */
-  width: 100vw;
-  height: 100vh;
-  object-fit: auto;
   overflow-x: hidden;
   font-family: "Patrick Hand", cursive;
-  font-weight: 400;
-  font-style: normal;
 }
 
-/* @media (min-width: 768px) {
-  body {
-    background-image: url("./assets/dr-bs-2.JPEG");
-    background-size: cover;
-  }
-} */
+@media (max-width: 768px) {
+}
 
 .patrick-hand-regular {
   font-family: "Patrick Hand", cursive;
