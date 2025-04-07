@@ -148,7 +148,7 @@ export default function Hero() {
       const encodedMessage = encodeURIComponent(message);
 
       // WhatsApp number (replace with the actual number)
-      const phoneNumber = +2348131466343;
+      const phoneNumber = import.meta.env.VITE_WHATSAPP_NUMBER;
 
       // Construct the WhatsApp API link
       const whatsappLink = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
