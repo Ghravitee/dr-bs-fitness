@@ -108,6 +108,7 @@ const Intro = () => {
         </motion.div>
 
         {/* Certifications */}
+        {/* Certifications */}
         <motion.div variants={fadeInUp} className="space-y-4 text-left">
           <h2
             onClick={() => setShowCerts(!showCerts)}
@@ -116,17 +117,41 @@ const Intro = () => {
             Certifications and Diplomas {showCerts ? "−" : "+"}
           </h2>
           {showCerts && (
-            <ul className="text-base sm:text-lg text-gray-300 list-disc list-inside space-y-1">
+            <ul className="text-base sm:text-lg text-gray-300 list-disc list-inside space-y-4">
               <motion.li variants={fadeInUp}>
                 IFBB advanced personal trainer.
+                <br />
+                <a
+                  href="/certificates/Ifbb.pdf"
+                  download
+                  className="inline-block mt-1 text-sm text-Primary underline hover:text-white transition"
+                >
+                  Download Certificate
+                </a>
               </motion.li>
               <motion.li variants={fadeInUp}>
                 International advanced personal trainer of small group by the
                 local gym federation.
+                <br />
+                <a
+                  href="/certificates/Local_Federation.pdf"
+                  download
+                  className="inline-block mt-1 text-sm text-Primary underline hover:text-white transition"
+                >
+                  Download Certificate
+                </a>
               </motion.li>
               <motion.li variants={fadeInUp}>
                 4 certificates of a private academy: floor coach, sports
                 nutrition, personal trainer, food supplements…
+                <br />
+                <a
+                  href="/certificates/PrivateAcademy.pdf"
+                  download
+                  className="inline-block mt-1 text-sm text-Primary underline hover:text-white transition"
+                >
+                  Download Certificate
+                </a>
               </motion.li>
             </ul>
           )}
