@@ -25,7 +25,7 @@ const Intro = () => {
   return (
     <div className="relative min-h-screen text-white flex flex-col justify-between p-6">
       {/* Overlay */}
-      <div className="absolute inset-0 bg-black/60 z-0" />
+      {/* <div className="absolute inset-0 bg-black/60 z-0" /> */}
 
       {/* Content */}
       <motion.div
