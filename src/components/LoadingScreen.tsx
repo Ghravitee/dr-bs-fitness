@@ -28,7 +28,7 @@ function LoadingScreen({ isLoading }: LoadingScreenProps) {
 
   return (
     <div
-      className={`fixed inset-0 flex flex-col items-center justify-center bg-gray-800 z-50 transition-opacity duration-500 ${
+      className={`fixed inset-0 flex flex-col items-center justify-center bg-black z-50 transition-opacity duration-500 ${
         fadeOut ? "opacity-0 pointer-events-none" : "opacity-100"
       }`}
     >
@@ -45,7 +45,7 @@ function LoadingScreen({ isLoading }: LoadingScreenProps) {
         {/* Progress Bar */}
         <div className="w-64 h-2 bg-gray-300 mt-4 rounded-full">
           <div
-            className="h-full bg-gray-500 rounded-full"
+            className="h-full bg-white rounded-full"
             style={{ width: `${progress}%` }}
           />
         </div>

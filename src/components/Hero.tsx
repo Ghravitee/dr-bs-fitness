@@ -8,12 +8,24 @@ import {
   MdOutlineKeyboardArrowDown,
   MdOutlineKeyboardArrowUp,
 } from "react-icons/md";
+import emailjs from "@emailjs/browser";
 
 // Form Validation Schema
 const formSchema = z.object({
   name: z.string().min(2, "Name is too short"),
   email: z.string().email("Invalid email"),
-  date: z.string().min(1, "Date is required"),
+  date: z
+    .string()
+    .min(1, "Date is required")
+    .refine(
+      (value) => {
+        const today = new Date();
+        const selectedDate = new Date(value);
+        today.setHours(0, 0, 0, 0); // remove time part
+        return selectedDate >= today;
+      },
+      { message: "Please select a future date" }
+    ),
   ageRange: z.string().min(1, "Select an age range"),
   phone: z.string().min(10, "Enter a valid phone number"),
   instagram: z.string().optional(),
@@ -21,9 +33,6 @@ const formSchema = z.object({
   country: z.string().min(2, "Country is required"),
   fitnessGoal: z.string().min(5, "Enter a fitness goal"),
   employment: z.string().min(2, "Enter your employment status"),
-  confirmation: z.enum(["yes", "no"], {
-    required_error: "Please confirm to proceed",
-  }),
 });
 
 const steps = [
@@ -58,13 +67,6 @@ const steps = [
     name: "employment",
     type: "text",
   },
-  {
-    id: 11,
-    label: "Trainer's fee starts at $50. Do you agree?",
-    name: "confirmation",
-    type: "radio",
-    options: ["yes", "no"],
-  },
 ];
 
 type FormData = {
@@ -77,41 +79,34 @@ type FormData = {
   country: string;
   fitnessGoal: string;
   employment: string;
-  confirmation: "yes" | "no";
+
   instagram?: string; // ✅ optional to match react-hook-form inference
 };
 
-const allowedKeys = [
-  "name",
-  "email",
-  "date",
-  "ageRange",
-  "phone",
-  "instagram",
-  "city",
-  "country",
-  "fitnessGoal",
-  "employment",
-  "confirmation",
-] as const;
-
-type FormFieldNames = (typeof allowedKeys)[number];
+type FormFieldNames = keyof FormData;
 
 export default function Hero() {
   const [stepIndex, setStepIndex] = useState(0);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [, setIsLoading] = useState(true);
-  const { register, handleSubmit, formState, setValue, watch } = useForm({
-    resolver: zodResolver(formSchema),
-    mode: "onBlur",
-  });
+
+  const { register, handleSubmit, formState, trigger, setValue, watch } =
+    useForm<FormData>({
+      resolver: zodResolver(formSchema),
+      mode: "onBlur",
+    });
+
+  const validateStep = async () => {
+    const fieldName = steps[stepIndex].name as FormFieldNames;
+    const isValid = await trigger(fieldName);
+    return isValid;
+  };
 
   useEffect(() => {
     const stored = localStorage.getItem("formInfo");
     const storedData = stored ? JSON.parse(stored) : {};
 
     Object.keys(storedData).forEach((key) => {
-      if (allowedKeys.includes(key as FormFieldNames)) {
+      if (key in formSchema.shape) {
         setValue(key as FormFieldNames, storedData[key]);
       }
     });
@@ -124,44 +119,95 @@ export default function Hero() {
     return () => subscription.unsubscribe();
   }, [watch]);
 
-  useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      const target = e.target as HTMLElement;
-      if (!target.closest(".custom-dropdown")) {
-        setIsDropdownOpen(false);
-      }
-    };
-    document.addEventListener("click", handleClickOutside);
-    return () => document.removeEventListener("click", handleClickOutside);
-  }, []);
-
-  useEffect(() => {
-    // Simulate page loading delay (replace with your actual loading logic)
-    setIsLoading(true);
-    const timer = setTimeout(() => setIsLoading(false), 2000);
-    return () => clearTimeout(timer);
-  }, [location.pathname]);
-
-  const nextStep = () => setStepIndex((i) => Math.min(i + 1, steps.length - 1));
+  const nextStep = async () => {
+    const field = steps[stepIndex].name as FormFieldNames;
+    const isValid = await trigger(field);
+    if (isValid) setStepIndex((i) => Math.min(i + 1, steps.length - 1));
+  };
   const prevStep = () => setStepIndex((i) => Math.max(i - 1, 0));
 
-  const onSubmit = (data: FormData) => {
-    console.log("Form Info:", data);
-    localStorage.removeItem("formInfo");
-    alert("Form submitted successfully!");
+  // — Unified send handler —
+  const handleSend = async (data: FormData, channel: "whatsapp" | "email") => {
+    if (channel === "whatsapp") {
+      const message = `
+      *Fitness Coaching Form Submission*
+      
+      *Name:* ${data.name}
+      *Email:* ${data.email}
+      *Preferred Date:* ${data.date}
+      *Age Range:* ${data.ageRange}
+      *Phone:* ${data.phone}
+      *Instagram:* ${data.instagram || "N/A"}
+      *City:* ${data.city}
+      *Country:* ${data.country}
+      *Fitness Goal:* ${data.fitnessGoal}
+      *Employment Status:* ${data.employment}
+    `;
+
+      // Encode the message for WhatsApp
+      const encodedMessage = encodeURIComponent(message);
+
+      // WhatsApp number (replace with the actual number)
+      const phoneNumber = +2348131466343;
+
+      // Construct the WhatsApp API link
+      const whatsappLink = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+
+      alert("Form submitted successfully!");
+
+      setTimeout(() => {
+        // localStorage.removeItem("formInfo");
+        // reset();
+        window.location.href = whatsappLink;
+      }, 500);
+    } else {
+      const message = `
+      Name: ${data.name}
+      Email: ${data.email}
+      Preferred Date: ${data.date}
+      Age Range: ${data.ageRange}
+      Phone: ${data.phone}
+      Instagram: ${data.instagram || "N/A"}
+      City: ${data.city}
+      Country: ${data.country}
+      Fitness Goal: ${data.fitnessGoal}
+      Employment Status: ${data.employment}
+`;
+
+      type EmailJSParams = {
+        user_name: string;
+        user_email: string;
+        from_name: string;
+        to_email: string;
+        subject?: string;
+        message: string;
+      };
+
+      const params: EmailJSParams = {
+        user_name: data.name,
+        user_email: data.email,
+        from_name: "Yassine ( Yacin ) Ben Salem",
+        to_email: import.meta.env.VITE_RECEIVER_EMAIL,
+        subject: "New Fitness Coaching Inquiry",
+        message,
+      };
+
+      try {
+        await emailjs.send(
+          import.meta.env.VITE_EMAILJS_SERVICE_ID,
+          import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+          params,
+          import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+        );
+        alert("Form emailed successfully!");
+      } catch (err) {
+        console.error("EmailJS error:", err);
+        alert("Failed to send email. Please try again.");
+      }
+    }
   };
   return (
     <div className="relative h-screen w-full overflow-hidden text-white font-sans">
-      <div className="absolute top-0 left-5 flex items-center justify-start">
-        <div>
-          <img
-            src="/logo.PNG"
-            alt="This is the logo of the website"
-            width={100}
-            height={100}
-          />
-        </div>
-      </div>
       <AnimatePresence mode="wait">
         <motion.div
           key={stepIndex}
@@ -171,10 +217,7 @@ export default function Hero() {
           transition={{ type: "spring", stiffness: 80, damping: 15 }}
           className="absolute top-0 left-0 flex h-screen w-full items-center justify-center"
         >
-          <form
-            className="max-w-[900px] w-full mx-auto p-8"
-            onSubmit={handleSubmit(onSubmit)}
-          >
+          <form className="max-w-[900px] w-full mx-auto p-8">
             <div className="flex items-center gap-2 mb-6">
               <p className="text-white text-sm">{steps[stepIndex].id}</p>
               <FaArrowRightLong className="text-white" />
@@ -184,7 +227,6 @@ export default function Hero() {
             </div>
 
             {/* Input Type Handling */}
-            {/* Dropdown (Select Type) */}
             {steps[stepIndex].type === "select" ? (
               <div className="relative custom-dropdown">
                 <div
@@ -209,13 +251,16 @@ export default function Hero() {
                     {steps[stepIndex].options?.map((option) => (
                       <div
                         key={option}
-                        onClick={() => {
+                        onClick={async () => {
                           setValue(
                             steps[stepIndex].name as keyof FormData,
                             option
                           );
-                          setIsDropdownOpen(false);
-                          nextStep(); // Move to next step after selection
+                          const isValid = await validateStep();
+                          if (isValid) {
+                            setIsDropdownOpen(false);
+                            nextStep();
+                          }
                         }}
                         className={`p-3 cursor-pointer hover:bg-gray-600 ${
                           watch(steps[stepIndex].name as keyof FormData) ===
@@ -239,7 +284,10 @@ export default function Hero() {
                       value={option}
                       {...register(steps[stepIndex].name as keyof FormData)}
                       className="accent-black"
-                      onChange={() => nextStep()} // Move to next step on selection
+                      onChange={async () => {
+                        const isValid = await validateStep();
+                        if (isValid) nextStep();
+                      }}
                     />
                     <span className="capitalize">{option}</span>
                   </label>
@@ -249,11 +297,18 @@ export default function Hero() {
               <input
                 {...register(steps[stepIndex].name as keyof FormData)}
                 type={steps[stepIndex].type}
+                name={steps[stepIndex].name}
                 className="lg:text-2xl block w-full px-3 pt-3 pb-2 focus:outline-0 border-b border-gray-300 bg-transparent text-white"
-                onKeyDown={(e) => {
+                min={
+                  steps[stepIndex].type === "date"
+                    ? new Date().toISOString().split("T")[0]
+                    : undefined
+                }
+                onKeyDown={async (e) => {
                   if (e.key === "Enter") {
-                    e.preventDefault(); // Prevent form submission
-                    nextStep(); // Move to the next step
+                    e.preventDefault();
+                    const isValid = await validateStep();
+                    if (isValid) nextStep();
                   }
                 }}
               />
@@ -270,12 +325,22 @@ export default function Hero() {
             )}
 
             {stepIndex === steps.length - 1 && (
-              <button
-                type="submit"
-                className="px-4 py-2 bg-black text-white rounded-md mt-4"
-              >
-                Submit
-              </button>
+              <div className="mt-6 flex gap-4">
+                <button
+                  type="button"
+                  onClick={handleSubmit((d) => handleSend(d, "whatsapp"))}
+                  className="px-6 py-2 bg-green-600 rounded-md"
+                >
+                  WhatsApp
+                </button>
+                <button
+                  type="button"
+                  onClick={handleSubmit((d) => handleSend(d, "email"))}
+                  className="px-6 py-2 bg-blue-600 rounded-md"
+                >
+                  Email
+                </button>
+              </div>
             )}
           </form>
         </motion.div>
@@ -293,7 +358,10 @@ export default function Hero() {
         )}
         {stepIndex < steps.length - 1 && (
           <div
-            onClick={nextStep}
+            onClick={async () => {
+              const isValid = await validateStep();
+              if (isValid) nextStep();
+            }}
             className="p-3 bg-black rounded-md flex items-center justify-center cursor-pointer"
           >
             <MdOutlineKeyboardArrowDown className="text-2xl text-white" />
