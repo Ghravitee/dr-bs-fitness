@@ -26,7 +26,7 @@ const Navbar = () => {
           {/* Logo */}
           <a href="/" className="font-bold text-2xl font-raleway z-50">
             <img
-              src="/logo.PNG"
+              src="/logo.webp"
               alt="Abyss Logo"
               width={80}
               height={80}

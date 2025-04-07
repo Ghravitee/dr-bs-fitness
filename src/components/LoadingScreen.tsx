@@ -34,7 +34,7 @@ function LoadingScreen({ isLoading }: LoadingScreenProps) {
     >
       <div className="flex flex-col items-center">
         <img
-          src="/logo.PNG"
+          src="/logo.webp"
           alt="This is the logo of the website"
           width={150}
           height={150}
