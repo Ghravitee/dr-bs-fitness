@@ -3,6 +3,8 @@ import Hero from "./components/Hero";
 import LoadingScreen from "./components/LoadingScreen";
 import Intro from "./components/Intro";
 import Navbar from "./components/Navbar";
+import { Toaster } from "react-hot-toast";
+import i18n from "./i18n";
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -11,6 +13,10 @@ const App = () => {
     const timer = setTimeout(() => setIsLoading(false), 5000);
     return () => clearTimeout(timer);
   }, []);
+
+  useEffect(() => {
+    document.documentElement.dir = i18n.language === "ar" ? "rtl" : "ltr";
+  }, [i18n.language]);
 
   return (
     <div className="relative font-[Patrick_Hand] overflow-x-hidden">
@@ -25,6 +31,7 @@ const App = () => {
         <LoadingScreen isLoading={isLoading} />
       ) : (
         <div className="relative z-10 min-h-screen">
+          <Toaster position="top-right" reverseOrder={false} />
           <Navbar />
           <Intro />
           <Hero />

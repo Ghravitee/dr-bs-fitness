@@ -1,0 +1,42 @@
+{
+  "form": {
+    "name": "Qual è il tuo nome?",
+    "email": "Qual è la tua email?",
+    "date": "Data preferita per l'appuntamento?",
+    "ageRange": {
+      "label": "Seleziona la tua fascia di età",
+      "options": {
+        "18-25": "18-25",
+        "26-35": "26-35",
+        "36-45": "36-45",
+        "46plus": "46+"
+      }
+    },
+    "phone": "Qual è il tuo numero di telefono?",
+    "instagram": "Qual è il tuo username su Instagram (opzionale)?",
+    "city": "In quale città vivi?",
+    "country": "In quale paese vivi?",
+    "fitnessGoal": "Qual è il tuo obiettivo fitness per i prossimi 120 giorni?",
+    "employment": "Qual è la tua attuale situazione lavorativa?"
+  },
+  "buttons": {
+    "submitwhatsapp": "Invia tramite WhatsApp",
+    "submitEmail": "Invia tramite email"
+  },
+  "welcomeMessage": "Benvenuti tutti nel mio unico sito web ufficiale. Qui inizierai il tuo percorso per trasformare il tuo corpo e diventare la migliore versione di te stesso. L'allenamento non è solo una 'cosa' che fai per cambiare il corpo... è anche uno stile di vita, una mentalità, disciplina e duro lavoro per raggiungere il successo. Voglio che ti concentri sui tuoi obiettivi, perché nulla è davvero difficile se siamo determinati.",
+  "myStory": "La mia storia",
+  "certifications": "Certificazioni e Diplomi",
+  "what_i_offer": "Cosa offro",
+  "story1": "Mi chiamo Yassine (Yacin) Ben Salem. Sono un giovane di 20 anni con molte ambizioni, che ha affrontato difficoltà fin da giovane e ha vissuto esperienze che mi hanno permesso di ottenere molto in giovane età. Ho iniziato ad allenarmi in palestra nel 2020, dopo che la mia famiglia mi ha detto che ero in sovrappeso e poco sano. Ho fatto esercizi di cardio per alcuni mesi, poi ho combinato allenamenti con il peso corporeo e bodybuilding. Ho fatto grandi progressi bruciando quasi tutta la massa grassa e sono passato alla fase di definizione, iniziando la calistenia completa l'anno successivo. Dopo un altro semestre, la trasformazione era evidente; tutti hanno notato il cambiamento, anche io ero sorpreso e orgoglioso di ciò che avevo ottenuto quando mi guardavo allo specchio. Non è stato facile, ma con tutto quel duro lavoro e la produttività che ho messo, sono riuscito a raggiungere il mio obiettivo... ero così concentrato che non notavo nemmeno il cambiamento fisico fino a mesi dopo.",
+  "story2": "Negli anni successivi, ho continuato ad allenarmi sia con la calistenia che con il bodybuilding, mescolando i migliori esercizi di ciascuna disciplina. Fu allora che mi resi conto di quanto entrambi i metodi aggiungessero dettagli incredibili alla forma del corpo. Inoltre, abituarsi al peso del corpo ti dà una forza incredibile per sollevare pesi più grandi. Ho continuato ad imparare e ad allenarmi fino a quando sono arrivato all'università, dove mi sono visto costretto a interrompere l'allenamento per più di sei mesi, il che è stato uno dei periodi più difficili della mia vita. Non entrerò nei dettagli personali, ma stare lontano dall'allenamento mi sembrava sbagliato, come se qualcosa non andasse bene, fino a quando sono riuscito a tornare. Essere un coach e personal trainer era un sogno, e l'ho iniziato a realizzare quando è finito il mio anno universitario, anche se non l'ho superato. Tutti in questa vita sono bravi in qualcosa, e lo studio non era il mio forte… questa consapevolezza è cresciuta nel tempo mentre allenavo le persone e lavoravo in palestra. E oggi voglio solo dire: “Alhamdulillah”, per seguire la strada giusta.",
+  "downloadCertificate": "Scarica il Certificato",
+  "offers": {
+    "calisthenics": "Fondamenti e abilità di calistenia",
+    "cardio": "Cardio per bruciare grassi",
+    "bulking": "Aumento della massa con calistenia e bodybuilding",
+    "cutting": "Definizione con calistenia e bodybuilding",
+    "weights": "Diete complete per aumentare o ridurre il peso",
+    "tips": "Consigli e orientamenti personalizzati"
+  },
+  "mainWelcome": "Benvenuto a"
+}

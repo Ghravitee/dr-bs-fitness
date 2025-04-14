@@ -1,0 +1,42 @@
+{
+  "form": {
+    "name": "Comment vous appelez-vous?",
+    "email": "Votre adresse e-mail ?",
+    "date": "Date de rendez-vous préférée ?",
+    "ageRange": {
+      "label": "Sélectionnez votre tranche d'âge",
+      "options": {
+        "18-25": "18-25 ans",
+        "26-35": "26-35 ans",
+        "36-45": "36-45 ans",
+        "46plus": "46 ans et plus"
+      }
+    },
+    "phone": "Votre numéro de téléphone ?",
+    "instagram": "Votre pseudo Instagram (optionnel) ?",
+    "city": "Votre ville ?",
+    "country": "Votre pays ?",
+    "fitnessGoal": "Votre objectif fitness pour les 120 prochains jours ?",
+    "employment": "Quel est votre statut professionnel actuel ?"
+  },
+  "buttons": {
+    "submitwhatsapp": "Envoyer via WhatsApp",
+    "submitEmail": "Envoyer par e-mail"
+  },
+  "welcomeMessage": "Bienvenue à tous sur mon seul site officiel. Ici commence votre parcours pour sculpter votre corps et devenir la meilleure version de vous-même. L'entraînement n’est pas juste une “chose” que l’on fait pour transformer son corps… c’est aussi un style de vie, un état d’esprit, de la discipline et du travail acharné pour atteindre le succès. Je veux que vous restiez concentrés sur vos objectifs, car rien n’est trop difficile pour nous.",
+  "myStory": "Bienvenue à mon seul site officiel...",
+  "certifications": "Certifications et Diplomas",
+  "what_i_offer": "Que je propose",
+  "story1": "Je m'appelle Yassine (Yacin) Ben Salem. J’ai 20 ans, un jeune homme ambitieux qui a traversé des moments difficiles dès son plus jeune âge, mais aussi vécu des expériences fortes qui m’ont permis d’accomplir beaucoup de choses très tôt. J’ai commencé la musculation en 2020, après que ma famille m’ait dit que j'avais l’air en surpoids et pas en bonne santé. J’ai alors commencé par faire un peu de cardio au hasard pendant plusieurs mois, puis je me suis tourné vers un mélange d’exercices au poids du corps et de musculation. J’ai rapidement vu des progrès : j’ai brûlé presque toute la graisse et entamé une phase de transformation, passant l’année suivante à un entraînement 100 % en callisthénie. Après six mois supplémentaires, le changement était clair pour tout le monde. Même moi, j’étais étonné et fier de voir ce que j’avais accompli chaque fois que je me regardais dans le miroir. Ce n’était pas facile, mais grâce à tout ce travail et cette discipline, j’ai réussi à atteindre mon objectif de l’époque. J’étais tellement concentré que je ne réalisais même pas l’évolution de mon corps, sauf en observant les changements mois après mois.",
+  "story2": "Les années suivantes, j’ai continué à m’entraîner en combinant la callisthénie et la musculation, en mélangeant intelligemment les exercices de base de chaque discipline. C’est à ce moment-là que j’ai vraiment compris à quel point ces deux méthodes sculptaient le corps de manière complémentaire. S’habituer à son propre poids corporel donne une puissance incroyable pour soulever plus lourd. Alors j’ai continué à apprendre et à m’entraîner jusqu’à mon année de licence, où j’ai été contraint d’arrêter la salle pendant plus de six mois — la période la plus difficile de toute ma vie. Je ne vais pas entrer dans les détails personnels, mais ce que je peux dire, c’est que m’éloigner de l’entraînement me faisait vraiment mal, c’était contre nature pour moi… jusqu’à ce que je puisse enfin reprendre ma routine. Devenir coach et entraîneur personnel a toujours été un rêve, et j’ai commencé à le concrétiser dès que l’année de licence s’est terminée — année que je n’ai pas validée d’ailleurs. Chacun a son propre talent dans la vie, et les études n’étaient clairement pas le mien… Ce sentiment s’est confirmé au fil du temps, en formant des gens et en travaillant dans une salle. Aujourd’hui, tout ce que j’ai envie de dire, c’est « alhamdoullilah » pour m’avoir permis de suivre le bon chemin.",
+  "downloadCertificate": "Télécharger le certificat",
+  "offers": {
+    "calisthenics": "Bases et techniques de la musculation au poids du corps",
+    "cardio": "Cardio pour brûler les graisses",
+    "bulking": "Prise de masse avec calisthenics et musculation",
+    "cutting": "Sèche avec calisthenics et musculation",
+    "weights": "Programmes alimentaires complets pour prendre ou perdre du poids",
+    "tips": "Conseils et astuces personnalisés"
+  },
+  "mainWelcome": "Bienvenue à"
+}

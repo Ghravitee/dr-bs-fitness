@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import i18n from "i18next";
 
 const Navbar = () => {
   const [navBg, setNavBg] = useState(false);
@@ -27,12 +28,33 @@ const Navbar = () => {
           <a href="/" className="font-bold text-2xl font-raleway z-50">
             <img
               src="/logo.webp"
-              alt="Abyss Logo"
+              alt="This is the logo of the website"
               width={80}
               height={80}
               className=""
             />
           </a>
+
+          <select
+            onChange={(e) => i18n.changeLanguage(e.target.value)}
+            className="text-white text-xl border border-white p-1 rounded-md cursor-pointer"
+          >
+            <option value="en" className="text-black">
+              English
+            </option>
+            <option value="fr" className="text-black">
+              Français
+            </option>
+            <option value="it" className="text-black">
+              Italiano
+            </option>
+            <option value="es" className="text-black">
+              Español
+            </option>
+            <option value="ar" className="text-black">
+              العربية
+            </option>
+          </select>
         </nav>
       </header>
     </>

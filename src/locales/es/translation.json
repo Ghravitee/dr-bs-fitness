@@ -1,0 +1,42 @@
+{
+  "form": {
+    "name": "¿Cuál es tu nombre?",
+    "email": "¿Cuál es tu correo electrónico?",
+    "date": "¿Fecha preferida para la cita?",
+    "ageRange": {
+      "label": "Selecciona tu rango de edad",
+      "options": {
+        "18-25": "18-25",
+        "26-35": "26-35",
+        "36-45": "36-45",
+        "46plus": "46+"
+      }
+    },
+    "phone": "¿Tu número de teléfono?",
+    "instagram": "¿Tu usuario de Instagram (opcional)?",
+    "city": "¿En qué ciudad vives?",
+    "country": "¿En qué país vives?",
+    "fitnessGoal": "¿Cuál es tu meta fitness para los próximos 120 días?",
+    "employment": "¿Cuál es tu situación laboral actual?"
+  },
+  "buttons": {
+    "submitwhatsapp": "Enviar por WhatsApp",
+    "submitEmail": "Enviar por correo electrónico"
+  },
+  "welcomeMessage": "Bienvenidos todos a mi única página web oficial. Aquí comenzarás tu camino para transformar tu cuerpo y convertirte en la mejor versión de ti mismo. El entrenamiento no es solo una 'cosa' que haces para cambiar tu cuerpo... también es un estilo de vida, una mentalidad, disciplina y trabajo duro para alcanzar el éxito. Quiero que te enfoques en tus metas, porque nada es realmente difícil si estamos decididos.",
+  "myStory": "Mi historia",
+  "certifications": "Certificaciones y Diplomas",
+  "what_i_offer": "Lo que ofrezco",
+  "story1": "Me llamo Yassine (Yacin) Ben Salem. Soy un joven de 20 años con muchas ambiciones, que pasó por momentos duros a una edad temprana y vivencias que me llevaron a lograr mucho desde joven. Empecé en el gimnasio en 2020 porque mi familia me decía que me veía con sobrepeso y poco saludable. Hice ejercicios de cardio aleatorios durante varios meses y luego combiné entrenamientos con el propio peso corporal y musculación. Logré grandes avances quemando casi toda la grasa y entré en la fase de definición, pasando al entrenamiento de calistenia por completo al año siguiente. Después de medio año más, la transformación era muy evidente; todos notaron el cambio, incluso yo me sorprendí y sentí orgullo al ver en el espejo todo lo que había conseguido. No fue fácil, pero ese esfuerzo y disciplina me llevaron a alcanzar mi objetivo... estaba tan enfocado que ni siquiera noté el cambio físico hasta meses después.",
+  "story2": "En los años siguientes seguí entrenando calistenia y musculación, mezclando lo mejor de los ejercicios básicos de cada disciplina. Fue entonces cuando comprendí cómo ambos métodos aportan detalles increíbles a la forma del cuerpo. Además, acostumbrarse al peso de tu cuerpo te da una fuerza impresionante para levantar cargas más pesadas. Continué aprendiendo y entrenando hasta que llegó mi etapa universitaria, cuando me vi obligado a dejar el gimnasio por más de medio año, lo cual fue una de las etapas más difíciles de mi vida. No entraré en detalles personales, pero alejarme del entrenamiento se sentía mal, como si algo no estuviera bien, hasta que pude volver. Ser coach y entrenador personal era un sueño, y comencé a hacerlo realidad cuando terminó el año universitario y no lo aprobé. Todos en la vida tenemos algo en lo que destacamos, y lo académico no era lo mío… esa certeza creció aún más mientras entrenaba a personas y trabajaba en el gimnasio. Y hoy solo quiero decir: “Alhamdulillah”, por seguir el camino correcto.",
+  "downloadCertificate": "Descargar Certificado",
+  "offers": {
+    "calisthenics": "Fundamentos y habilidades en calistenia",
+    "cardio": "Cardio para quemar grasa",
+    "bulking": "Aumento de masa con calistenia y musculación",
+    "cutting": "Definición con calistenia y musculación",
+    "weights": "Dietas completas para subir o bajar de peso",
+    "tips": "Consejos y orientación personalizada"
+  },
+  "mainWelcome": "Bienvenido a"
+}

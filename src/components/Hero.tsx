@@ -9,6 +9,10 @@ import {
   MdOutlineKeyboardArrowUp,
 } from "react-icons/md";
 import emailjs from "@emailjs/browser";
+import toast from "react-hot-toast";
+import { FaWhatsapp } from "react-icons/fa";
+import { MdOutlineMailOutline } from "react-icons/md";
+import { useTranslation } from "react-i18next";
 
 // Form Validation Schema
 const formSchema = z.object({
@@ -35,39 +39,39 @@ const formSchema = z.object({
   employment: z.string().min(2, "Enter your employment status"),
 });
 
-const steps = [
-  { id: 1, label: "What's your name?", name: "name", type: "text" },
-  { id: 2, label: "Your email?", name: "email", type: "email" },
-  { id: 3, label: "Preferred appointment date?", name: "date", type: "date" },
-  {
-    id: 4,
-    label: "Select your age range",
-    name: "ageRange",
-    type: "select",
-    options: ["18-25", "26-35", "36-45", "46+"],
-  },
-  { id: 5, label: "Your phone number?", name: "phone", type: "tel" },
-  {
-    id: 6,
-    label: "Your Instagram username (optional)?",
-    name: "instagram",
-    type: "text",
-  },
-  { id: 7, label: "Your city?", name: "city", type: "text" },
-  { id: 8, label: "Your country?", name: "country", type: "text" },
-  {
-    id: 9,
-    label: "Your fitness goal for the next 120 days?",
-    name: "fitnessGoal",
-    type: "text",
-  },
-  {
-    id: 10,
-    label: "Your current employment status?",
-    name: "employment",
-    type: "text",
-  },
-];
+// const steps = [
+//   { id: 1, label: "What's your name?", name: "name", type: "text" },
+//   { id: 2, label: "Your email?", name: "email", type: "email" },
+//   { id: 3, label: "Preferred appointment date?", name: "date", type: "date" },
+//   {
+//     id: 4,
+//     label: "Select your age range",
+//     name: "ageRange",
+//     type: "select",
+//     options: ["18-25", "26-35", "36-45", "46+"],
+//   },
+//   { id: 5, label: "Your phone number?", name: "phone", type: "tel" },
+//   {
+//     id: 6,
+//     label: "Your Instagram username (optional)?",
+//     name: "instagram",
+//     type: "text",
+//   },
+//   { id: 7, label: "Your city?", name: "city", type: "text" },
+//   { id: 8, label: "Your country?", name: "country", type: "text" },
+//   {
+//     id: 9,
+//     label: "Your fitness goal for the next 120 days?",
+//     name: "fitnessGoal",
+//     type: "text",
+//   },
+//   {
+//     id: 10,
+//     label: "Your current employment status?",
+//     name: "employment",
+//     type: "text",
+//   },
+// ];
 
 type FormData = {
   name: string;
@@ -80,7 +84,7 @@ type FormData = {
   fitnessGoal: string;
   employment: string;
 
-  instagram?: string; // ✅ optional to match react-hook-form inference
+  instagram?: string; // optional to match react-hook-form inference
 };
 
 type FormFieldNames = keyof FormData;
@@ -88,6 +92,31 @@ type FormFieldNames = keyof FormData;
 export default function Hero() {
   const [stepIndex, setStepIndex] = useState(0);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const { t } = useTranslation();
+
+  const steps = [
+    { id: 1, label: t("form.name"), name: "name", type: "text" },
+    { id: 2, label: t("form.email"), name: "email", type: "email" },
+    { id: 3, label: t("form.date"), name: "date", type: "date" },
+    {
+      id: 4,
+      label: t("form.ageRange.label"),
+      name: "ageRange",
+      type: "select",
+      options: [
+        t("form.ageRange.options.18-25"),
+        t("form.ageRange.options.26-35"),
+        t("form.ageRange.options.36-45"),
+        t("form.ageRange.options.46plus"),
+      ],
+    },
+    { id: 5, label: t("form.phone"), name: "phone", type: "tel" },
+    { id: 6, label: t("form.instagram"), name: "instagram", type: "text" },
+    { id: 7, label: t("form.city"), name: "city", type: "text" },
+    { id: 8, label: t("form.country"), name: "country", type: "text" },
+    { id: 9, label: t("form.fitnessGoal"), name: "fitnessGoal", type: "text" },
+    { id: 10, label: t("form.employment"), name: "employment", type: "text" },
+  ];
 
   const { register, handleSubmit, formState, trigger, setValue, watch } =
     useForm<FormData>({
@@ -129,37 +158,40 @@ export default function Hero() {
   // — Unified send handler —
   const handleSend = async (data: FormData, channel: "whatsapp" | "email") => {
     if (channel === "whatsapp") {
-      const message = `
-      *Fitness Coaching Form Submission*
-      
-      *Name:* ${data.name}
-      *Email:* ${data.email}
-      *Preferred Date:* ${data.date}
-      *Age Range:* ${data.ageRange}
-      *Phone:* ${data.phone}
-      *Instagram:* ${data.instagram || "N/A"}
-      *City:* ${data.city}
-      *Country:* ${data.country}
-      *Fitness Goal:* ${data.fitnessGoal}
-      *Employment Status:* ${data.employment}
-    `;
+      try {
+        const phoneNumber = import.meta.env.VITE_WHATSAPP_NUMBER;
 
-      // Encode the message for WhatsApp
-      const encodedMessage = encodeURIComponent(message);
+        if (!phoneNumber) {
+          throw new Error("WhatsApp number is not configured.");
+        }
 
-      // WhatsApp number (replace with the actual number)
-      const phoneNumber = import.meta.env.VITE_WHATSAPP_NUMBER;
+        const message = `
+        *Fitness Coaching Form Submission*
+        
+        *Name:* ${data.name}
+        *Email:* ${data.email}
+        *Preferred Date:* ${data.date}
+        *Age Range:* ${data.ageRange}
+        *Phone:* ${data.phone}
+        *Instagram:* ${data.instagram || "N/A"}
+        *City:* ${data.city}
+        *Country:* ${data.country}
+        *Fitness Goal:* ${data.fitnessGoal}
+        *Employment Status:* ${data.employment}
+      `;
 
-      // Construct the WhatsApp API link
-      const whatsappLink = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+        const encodedMessage = encodeURIComponent(message);
+        const whatsappLink = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
 
-      alert("Form submitted successfully!");
+        toast.success("Redirecting you to WhatsApp...");
 
-      setTimeout(() => {
-        // localStorage.removeItem("formInfo");
-        // reset();
-        window.location.href = whatsappLink;
-      }, 500);
+        setTimeout(() => {
+          window.location.href = whatsappLink;
+        }, 500);
+      } catch (error) {
+        console.error("WhatsApp error:", error);
+        toast.error("Could not open WhatsApp. Please try again later.");
+      }
     } else {
       const message = `
       Name: ${data.name}
@@ -199,10 +231,10 @@ export default function Hero() {
           params,
           import.meta.env.VITE_EMAILJS_PUBLIC_KEY
         );
-        alert("Form emailed successfully!");
+        toast.success("Email sent successfully!");
       } catch (err) {
         console.error("EmailJS error:", err);
-        alert("Failed to send email. Please try again.");
+        toast.error("Failed to send email. Please try again.");
       }
     }
   };
@@ -325,20 +357,22 @@ export default function Hero() {
             )}
 
             {stepIndex === steps.length - 1 && (
-              <div className="mt-6 flex gap-4">
+              <div className="mt-6 flex flex-col md:flex-row gap-4 w-fit mx-auto md:mx-0">
                 <button
                   type="button"
                   onClick={handleSubmit((d) => handleSend(d, "whatsapp"))}
-                  className="px-6 py-2 bg-green-600 rounded-md"
+                  className="flex gap-1 items-center justify-center px-6 py-2 bg-green-600 rounded-md cursor-pointer"
                 >
-                  WhatsApp
+                  <p>Submit via WhatsApp</p>
+                  <FaWhatsapp className="text-xl" />
                 </button>
                 <button
                   type="button"
                   onClick={handleSubmit((d) => handleSend(d, "email"))}
-                  className="px-6 py-2 bg-blue-600 rounded-md"
+                  className="flex gap-1 items-center justify-center px-6 py-2 bg-blue-600 rounded-md cursor-pointer"
                 >
-                  Email
+                  <p>Submit via Email</p>
+                  <MdOutlineMailOutline className="text-xl" />
                 </button>
               </div>
             )}
