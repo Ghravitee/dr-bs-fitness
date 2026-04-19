@@ -16,12 +16,12 @@ const App = () => {
 
   useEffect(() => {
     document.documentElement.dir = i18n.language === "ar" ? "rtl" : "ltr";
-  }, [i18n.language]);
+  }, []);
 
   return (
     <div className="relative font-[Patrick_Hand] overflow-x-hidden">
       {/* 🔹 Fixed Background Layer */}
-      <div className="fixed top-0 left-0 w-full h-full bg-cover bg-no-repeat bg-top bg-[url('./assets/dr-bs-1.JPEG')] -z-10">
+      <div className="fixed top-0 left-0 w-full h-full bg-cover bg-no-repeat bg-[position:50%_30%] bg-[url('./assets/bs-image.JPEG')] -z-10">
         {/* Optional overlay for better readability */}
         <div className="absolute inset-0 bg-black/40" />
       </div>
